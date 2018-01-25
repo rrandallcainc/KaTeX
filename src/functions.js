@@ -32,6 +32,8 @@ import "./functions/color";
 
 import "./functions/text";
 
+import "./functions/class";
+
 // \color is handled in Parser.js's parseImplicitGroup
 defineFunction(["\\color"], {
     numArgs: 1,

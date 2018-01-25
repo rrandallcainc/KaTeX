@@ -754,6 +754,9 @@ export default class Parser {
         if (type === "size") {
             return this.parseSizeGroup(optional);
         }
+        if (type === "string") {
+            return this.parseRawStringGroup(optional);
+        }
         if (type === "url") {
             return this.parseUrlGroup(optional);
         }
@@ -905,6 +908,17 @@ export default class Parser {
         // forward slashes.
         const url = raw.replace(/\\([#$%&~_^{}])/g, '$1');
         return newArgument(new ParseNode("url", url, this.mode), res);
+    }
+
+    /**
+     * Parses a raw string.
+     */
+    parseRawStringGroup(optional: boolean): ?ParsedArg {
+        const res = this.parseStringGroupWithBalancedBraces("string", optional);
+        if (!res) {
+            return null;
+        }
+        return newArgument(new ParseNode("string", res.text, "text"), res);
     }
 
     /**
